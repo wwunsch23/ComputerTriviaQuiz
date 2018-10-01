@@ -27,9 +27,9 @@ var quizQuestions = [
     }
 ];
 
-var currentQuestion = 0;
+//var currentQuestion = 0;
 var correctAnswers = 0;
-var quizOver = false;
+var reset = false;
 var intervalId;
 
 var quizTimer = {
@@ -62,17 +62,23 @@ var quizTimer = {
         quizTimer.time--;
         
         var currentFormattedTime = quizTimer.timeConverter(quizTimer.time);
-        myTimer.html("<h2>Time Remaining: "+currentFormattedTime+"</h2>");
+        myTimer.html(currentFormattedTime);
 
         if (quizTimer.time === 0) {
             quizTimer.timeUp();
-            showResults(quizQuestions);
+            showResults(quizQuestions, $("#content"));
         }
     },
 
-    startTimer: function() {
-        var timer = $("#timer").show()
-        $("#time").text(quizTimer.timeConverter(quizTimer.time));
+    startTimer: function(quizStatus) {
+        var timeContainer = $("#timer-container").show();
+        var timer = $("#time");
+
+        if (quizStatus){
+            quizTimer.time = 30;
+        }
+        
+        timer.text(quizTimer.timeConverter(quizTimer.time));
         intervalId = setInterval(function () {
             quizTimer.secondCount(timer);
             }
@@ -87,11 +93,12 @@ var quizTimer = {
 function startQuiz(content) {
     var startText = $("#start-text").hide();
     var startButton = $("#start-button").hide();
-    quizTimer.startTimer();
+    quizTimer.startTimer(reset);
     showQuestions(quizQuestions,content);
 }
 
 function showQuestions(questions, quizContainer){
+
 	var output = [];
 	var answers;
 
@@ -118,18 +125,19 @@ function showQuestions(questions, quizContainer){
     
     output.push(
         '<button class="button" id="submit">Submit</button>'
-    )
+    );
 
     //combine output array into one string of html and put it on the page
     quizContainer.append(output.join(''));
 
     $("#submit").on("click",function () {
-        showResults(quizQuestions);
+        showResults(quizQuestions,quizContainer);
     });
 
 }
 
-function showResults(questions){
+function showResults(questions,quizContainer){
+    reset = true;
 
     // gather answer containers from our quiz
     var answerContainers = $('.answers');
@@ -165,8 +173,23 @@ function showResults(questions){
 
     // show number of correct answers out of total
     results.innerHTML = "<h2>Percent Correct: " + (numCorrect/questions.length)*100 +"%<br>Number Right: "+numCorrect +"<br>Number Wrong: "+numWrong;
-
+    
     quizTimer.timeUp();
+
+
+    $("#submit").remove();
+    quizContainer.append(
+        '<button class="button" id="playAgain">Play Again</button>'
+    );
+
+    $("#playAgain").on("click",function () {
+        $("#results").empty();
+        $(".question").remove();
+        $('.answers').remove();
+        $("#playAgain").remove();
+        var content = $("#content");
+        startQuiz(content);
+    });
 }
 
 

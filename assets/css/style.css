@@ -28,11 +28,11 @@ header {
 
 }
 
-#timer {
+#timer-container {
     display:none;
 }
 
-#timer h2 {
+#timer-container h2 {
     color: black;
     font-size: 36px;
     padding-top: 20px;
@@ -68,7 +68,7 @@ header {
     display: inline-block;
     font-size: 32px;
     border-radius: 8px;
-    margin: 30px 2px 4px;
+    margin: 30px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
     width: 50%;
@@ -77,10 +77,6 @@ header {
 .button:hover {
     background-color: #A17171;
     color: white;
-}
-
-#submit {
-    margin-bottom: 30px;
 }
 
 .question {
