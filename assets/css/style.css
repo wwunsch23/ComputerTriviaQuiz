@@ -9,6 +9,7 @@ html {
 
 body {
     color: #6E4D4D;
+    font-family: 'Jura 400', sans-serif;
 }
 
 header {
@@ -18,7 +19,8 @@ header {
 }
 
 .header-text {
-    font-size: 60px;
+    font-family: 'Jura 500', sans-serif;
+    font-size: 72px;
     padding: 20px;
     text-shadow:
 		-1px -1px 0 #EEEEEE,
@@ -34,7 +36,7 @@ header {
 
 #timer-container h2 {
     color: black;
-    font-size: 36px;
+    font-size: 32px;
     padding-top: 20px;
 }
 
@@ -80,12 +82,16 @@ header {
 }
 
 .question {
-    font-size:24px;
+    font-size: 32px;
     font-weight: bold;
     margin: 30px 0px 10px;
 }
 
 .answers {
-    font-size: 18px;
+    font-size: 24px;
+}
+
+#results h2 {
+    font-size: 32px;
 }
 

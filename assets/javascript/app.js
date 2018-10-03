@@ -24,6 +24,16 @@ var quizQuestions = [
         name: "virus",
         choices: ["Becky","Melissa","Jessica","Stephanie"],
         correctAnswer: 1
+    }, {
+        question: "What does Error 404 mean?",
+        name: "error",
+        choices: ["Site access forbidden","Bad file request","Site not found","Timeout"],
+        correctAnswer: 2
+    }, {
+        question: "How much did the first electronic computer weigh?",
+        name: "weigh",
+        choices: ["15,000 lbs","27 tons","43 tons","30,000 lbs"],
+        correctAnswer: 1
     }
 ];
 
@@ -31,10 +41,11 @@ var quizQuestions = [
 var correctAnswers = 0;
 var reset = false;
 var intervalId;
+var fullTime = 45;
 
 var quizTimer = {
 
-    time: 30,
+    time: fullTime,
 
     timeConverter: function(t) {
 
@@ -75,7 +86,7 @@ var quizTimer = {
         var timer = $("#time");
 
         if (quizStatus){
-            quizTimer.time = 30;
+            quizTimer.time = fullTime;
         }
         
         timer.text(quizTimer.timeConverter(quizTimer.time));
@@ -172,7 +183,7 @@ function showResults(questions,quizContainer){
     }
 
     // show number of correct answers out of total
-    results.innerHTML = "<h2>Percent Correct: " + (numCorrect/questions.length)*100 +"%<br>Number Right: "+numCorrect +"<br>Number Wrong: "+numWrong;
+    results.innerHTML = "<h2>Percent Correct: " + ((numCorrect/questions.length)*100).toFixed(0) +"%<br>Number Right: "+numCorrect +"<br>Number Wrong: "+numWrong;
     
     quizTimer.timeUp();
 
